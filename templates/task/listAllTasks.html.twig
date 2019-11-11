@@ -1,0 +1,70 @@
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des tâches{% endblock %}
+
+{% block body %}
+
+        
+       
+<div class="margin padding border-grey align-center">
+
+    <h1 class="margin">{{ userName }}, </h1>
+    <h2 class="margin">Voici la liste de vos tâches:</h2>
+
+    {% if tasks %}
+    {% for task in tasks %}
+    {% if task.taskStatut == 'En attente' %}
+    <div class="margin padding waiting">
+    {% elseif task.taskStatut == 'Fait !'%}
+        <div class="margin padding made">
+    {% elseif task.taskStatut == 'A faire'%}
+        <div class="margin padding to-do">
+    {% elseif task.taskStatut == 'En pause'%}
+        <div class="margin padding paused">
+    {% elseif task.taskStatut == 'En retard'%}
+        <div class="margin padding late">
+    {% endif %}
+            <div class="row">
+                <div class="col-md-6">
+                    <h2>{{ task.taskName }}</h2>
+                    <p>{{ task.taskDescription }}</p>
+                    <p>{{ task.taskStatut }}</p>
+                </div>
+
+                <div class="col-md-6">
+                    <h2>{{ task.taskStartDate |localizeddate('none', 'none', 'fr', null, 'EEEE d MMMM Y à HH:mm') }}</h2>
+                    <h2>{{ task.taskEndDate |localizeddate('none', 'none', 'fr', null, 'EEEE d MMMM Y à HH:mm') }}</h2>
+                </div>
+            </div>
+            <div class="small-margin row">
+                <div class="col-md-3">
+                    <a class="button block small-margin" href="{{ path('members') }}/taches/supprimer/{{ task.taskId }}"
+                        onclick="if(window.confirm('Voulez-vous vraiment supprimer ?')){return true;}else{return false;}">
+                        Supprimer 👎</a>
+                </div>
+                <div class="col-md-3">
+                    <a class="button block small-margin" href="{{ path('members') }}/taches/pause/{{ task.taskId }}">Pause</a>
+                </div>
+                <div class="col-md-3">
+                    <a class="button block small-margin" href="{{ path('members') }}/taches/fait/{{ task.taskId }}">Fait ✅</a>
+                </div>
+                <div class="col-md-3">
+                    <a class="button block small-margin" href="{{ path('members') }}/taches/fait/supprimer/{{ task.taskId }}">Fait et supprimer ✅</a>
+                </div>                
+            </div>
+
+        </div>
+        {% endfor %}
+        <div class="navigation">
+            {{ knp_pagination_render(tasks) }}
+        </div>
+        {% else %}
+        <div class="margin padding background-white">
+            <h2 class="margin">Aucunes tâches trouvées!</h2>
+            <p>Bon travail</p>
+        </div>
+        {% endif %}
+    </div>
+
+    {% endblock %}

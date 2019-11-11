@@ -1,0 +1,36 @@
+{% extends '/emails/baseEmail.html.twig' %}
+
+{% block body %}
+
+{% apply inline_css(source('email.css')) %}
+<div class="margin padding border-grey align-center">
+    <h1>Rappel de la liste de vos tâches à faire</h1>
+    <h2>Bonjour, {{ userName }}</h2>
+
+    {% if tasks %}
+    {% for task in tasks %}
+    {% if task.taskStatut == 'A faire'%}
+        <div class="margin padding to-do">
+    {% elseif task.taskStatut == 'En retard'%}
+        <div class="margin padding late">
+    {% endif %}
+            <div class="align-center">
+                <div class="">
+                    <h2>{{ task.taskName }}</h2>
+                    <p>{{ task.taskDescription }}</p>
+                    <p>{{ task.taskStatut }}</p>
+                </div>
+
+                <div class="">
+                    <h2>{{ task.taskStartDate |localizeddate('none', 'none', 'fr', null, 'EEEE d MMMM Y à HH:mm') }}</h2>
+                    <h2>{{ task.taskEndDate |localizeddate('none', 'none', 'fr', null, 'EEEE d MMMM Y à HH:mm') }}</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+    {% endif %}
+</div>
+{% endapply %}
+{% endblock %}
+

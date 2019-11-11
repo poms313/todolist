@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Actualisation des tâches{% endblock %}
+
+{% block body %}
+
+
+<div class="margin padding border-grey align-center">
+    <h1>Actualisation des tâches</h1>
+    <h2>Cette page met a jour le statut des tâches et envoie des e-mails de notifications aux utilisateurs</h2>
+    <h3>Seul un administrateur peut la charger</h3>
+
+    <div class="margin">
+        {% if markAsToDo %}
+            <h4>{{ markAsToDo }}! ✅</h4>
+        {% else %}
+            <h4>Pas de statuts à changer</h4>
+        {% endif %}
+
+        {% if sendRememberEmail %}
+            <h4>{{ sendRememberEmail }}! ✅</h4>
+        {% else %}
+            <h4>Pas de mails à envoyer</h4>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

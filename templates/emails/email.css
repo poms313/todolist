@@ -1,0 +1,80 @@
+button:not(.navbar-toggle), .button {
+    padding: 10px;
+    box-shadow: -2px 2px 5px 1px rgba(100, 7, 0, 0.685),
+            2px -2px 5px 1px rgba(100, 7, 0, 0.685),
+            -1px 2px 20px rgba(145, 1, 1, 0.76) inset; 
+    border: rgb(100, 7, 0) solid 2px;
+    color: rgb(236, 253, 0);
+    background-color: rgba(255, 35, 35, 0.795);
+    text-decoration: none;
+}
+
+.button:hover,
+button:not(.navbar-toggle):hover {
+    background: #1eff00;
+    color: rgb(236, 253, 0);
+    border: rgb(21, 90, 0) solid 2px;
+    box-shadow: 5px 5px 10px rgba(255, 251, 1, 0.678),
+                -5px -5px 10px rgba(255, 251, 1, 0.678);
+    -webkit-transition: all 250ms ease-in-out 0s;
+    -moz-transition: all 250ms ease-in-out 0s;
+    -ms-transition: all 250ms ease-in-out 0s;
+    -o-transition: all 250ms ease-in-out 0s;
+    transition: all 250ms ease-in-out 0s;
+    text-decoration: none;
+}
+
+/* Tasks style */
+.to-do {
+    margin: 30px;
+    padding: 20px;
+    box-shadow: -2px 2px 3px 1px rgba(252, 130, 121, 0.685),
+                2px -2px 3px 1px rgba(252, 130, 121, 0.685),
+                -8px -8px 20px rgba(145, 1, 1, 0.76) inset,
+                8px 8px 20px rgba(145, 1, 1, 0.76) inset; 
+    border: rgba(53, 0, 0, 1) solid 2px;
+    background-color: rgba(252, 156, 156, 0.5);
+}
+
+.late {
+    margin: 30px;
+    padding: 20px;
+    box-shadow: -2px 2px 3px 1px rgba(136, 136, 136, 0.685),
+                2px -2px 3px 1px rgba(136, 136, 136, 0.685),
+                -8px -8px 20px rgba(65, 65, 65, 0.76) inset,
+                8px 8px 20px rgba(65, 65, 65, 0.76) inset; 
+    border: rgb(255, 255, 255) solid 2px;
+    color: #fff;
+    background-color: rgba(2, 2, 2, 0.562);
+}
+
+.align-center {
+    text-align: center;
+    margin: auto;
+}
+
+.margin {
+    margin: 30px;
+}
+
+.padding {
+    padding: 30px;
+}
+
+.small-margin {
+    margin: 15px;
+}
+
+.small-padding {
+    padding: 15px;
+}
+
+.border-grey {
+    box-shadow:-10px 20px 20px rgba(133, 133, 133, 0.6) inset,
+            10px -20px 20px rgba(133, 133, 133, 0.6) inset;
+    background-color: rgb(228, 228, 228);  
+}
+
+.background-white {
+    background-color: #FFF;
+}

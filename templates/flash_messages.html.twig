@@ -1,0 +1,22 @@
+{% block flash_messages %}
+            {% for flash_message in app.session.flashbag.get('success') %}
+                <div class="container alert alert-success margin" role="alert">
+                    {{ flash_message }}
+                </div>
+            {% endfor %}
+            {% for flash_message in app.session.flashbag.get('info') %}
+                <div class="container alert alert-info  margin" role="alert">
+                    {{ flash_message }}
+                </div>
+            {% endfor %}
+            {% for flash_message in app.session.flashbag.get('warning') %}
+                <div class="container alert alert-warning  margin" role="alert">
+                    {{ flash_message }}
+                </div>
+            {% endfor %}
+            {% for flash_message in app.session.flashbag.get('danger') %}
+                <div class="container alert alert-danger  margin" role="alert">
+                    {{ flash_message }}
+                </div>
+            {% endfor %}
+{% endblock %}

@@ -1,0 +1,18 @@
+{# the image lives at "public/images/logo.png" #}
+<img src="{{ asset('images/logo.png') }}" alt="Symfony!"/>
+
+{# the CSS file lives at "public/css/blog.css" #}
+<link href="{{ asset('css/blog.css') }}" rel="stylesheet"/>
+
+
+
+<script src="{{ asset('bundles/acme/js/loader.js') }}"></script>
+
+
+<a href="{{ path('blog_index') }}">Homepage</a>
+
+
+{# check error #}
+php bin/console lint:twig templates/
+
+{{ article.date_de_publication|localizeddate('none', 'none', 'fr', null, 'EEEE d MMMM Y') }}

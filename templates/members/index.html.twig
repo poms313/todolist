@@ -1,0 +1,59 @@
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Espace membres{% endblock %}
+
+{% block body %}
+
+<div class="margin padding border-grey align-center">
+
+  <h1>Bienvenue {{ userName }}!</h1>
+  {% if photo %}
+    <img class="width-180 block align-center" src="{{ asset('uploads/images/' ~  photo ) }}">
+  {% endif %}
+</div>
+
+<div class="margin padding border-grey row align-center">
+    <div class="col-xs-12 col-sm-6 col-md-3">
+      <a class="button block small-margin" href="{{ path('members_modify') }}">Modifier vos données personelles</a>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-3">
+      <a class="button block small-margin" href="{{ path('newTask') }}">Nouvelle tâche </a>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-3">
+      <a class="button block small-margin" href="{{ path('task') }}">
+        {% if countOldTasks == 0 %}
+          Pas tâches non faites
+        {% elseif countOldTasks == 1  %} 
+          {{ countOldTasks }} tâche non faite
+        {% else %}
+          {{ countOldTasks }} tâches non faites
+        {% endif %}  
+      </a>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-3">
+      <a class="button block small-margin" href="{{ path('task') }}">
+        {% if countFutureTasks == 0 %}
+          Pas tâches à venir
+        {% elseif countFutureTasks == 1  %} 
+          {{ countFutureTasks }} tâche à venir
+        {% else %}
+          {{ countFutureTasks }} tâches à venir
+        {% endif %}  
+      </a>
+    </div>
+</div>
+
+
+<button>
+  <a data-toggle="collapse" href="#modifyUserData" role="button" aria-expanded="false" aria-controls="collapseExample">
+    Link with href
+  </a>
+</button>
+<div class="collapse" id="collapseExample">
+  <div class="card card-body">
+    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+  </div>
+</div>
+{% endblock %}
+

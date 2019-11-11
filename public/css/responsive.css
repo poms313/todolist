@@ -1,0 +1,14 @@
+
+
+@media all and (min-width: 957px) {
+
+    
+}
+
+
+@media all and (max-width: 957px) {
+ 
+    .menu img {
+        display: none;
+    }
+}

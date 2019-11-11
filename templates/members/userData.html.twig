@@ -1,0 +1,14 @@
+
+{% extends 'base.html.twig' %}
+
+
+{% block title %}{{title}}{% endblock %}
+
+{% block body %}
+    <div class="margin padding border-grey">
+        <h1 class="align-center">{{title}}</h1>
+        <div class="margin">
+            {{form(user_form)}}
+        </div>
+    </div>
+{% endblock %}

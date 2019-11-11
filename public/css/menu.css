@@ -1,0 +1,78 @@
+/* Menu rules */
+
+.menu {
+    height: 200px;
+    background-image: url(../images/header-background.jpg);
+    background-attachment: fixed;
+    background-size: cover;
+    text-align: center;
+    color: #fff;
+}
+
+.menu img {
+    height: 164px;
+    margin-top: 20px;
+    display: block
+}
+
+/* nav bar before scrolling*/
+.affix-top {
+  background-color: rgb(255, 77, 77);
+}
+
+.affix-top a {
+  color: rgb(43, 43, 43);
+}
+
+/* nav bar after scrolling*/
+.affix {
+  top: 0;
+  width: 100%;
+  -webkit-transition: all .5s ease-in-out;
+  transition: all .5s ease-in-out;
+  background-color: rgb(65, 65, 65);
+  border-color: rgb(49, 3, 0);
+  z-index: 9999;
+   
+}
+
+.affix a {
+  color: #fff;
+  padding: 15px !important;
+  -webkit-transition: all .5s ease-in-out;
+  transition: all .5s ease-in-out;
+  font-weight: 600;
+  }
+
+.affix a:hover {
+  color: rgb(75, 75, 75);
+}
+  
+/*
+  .affix-top a {
+    padding: 25px !important;
+  }
+*/
+
+.affix + .container-fluid {
+  padding-top: 95px;
+}
+
+.navbar {
+  margin-bottom: 0px;
+}
+
+.navbar-toggle {
+  border: rgb(189, 189, 189) solid 2px;
+}
+
+.icon-bar {
+  background-color: rgb(189, 189, 189);
+}
+
+.affix ~ .container-fluid {
+  position: relative;
+  top: 50px;
+}
+
+

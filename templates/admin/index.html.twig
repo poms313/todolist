@@ -1,0 +1,55 @@
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Espace d'administration{% endblock %}
+
+{% block body %}
+<style>
+
+</style>
+<div class="margin padding border-grey align-center">
+    <h1 class="align-center margin padding">Espace d'administration ✅</h1>
+    <a class="button small-margin block" href="{{ path('udpade_tasks') }}" >Mettre à jour les tâches</a>
+    <p>Attention, ce bouton va changer les statuts des tâches en fonction de la date actuelle</p>
+    <p>Et envoyer un mail de rappel à chaque utilisateur qui a des tâches en attente</p>
+    <p>Cette page est lancée une fois par jour automatiquement</p>
+
+
+</div>
+
+<div class="margin padding border-grey">
+    <h2 class="align-center margin">Liste des membres</h2>
+
+    {% if users %}
+        {% for user in users %}
+            <div class="margin row background-white padding">
+                <div class="col-md-6 align-center">
+                    <h2 class="small-margin">{{ user.userName }}</h2>
+                    <a class="button small-margin block" href="{{ path('admin') }}/supprimer/{{user.id }}" onclick="if(window.confirm('Voulez-vous vraiment supprimer ?')){return true;}else{return false;}">
+                        Supprimer le membre</a>
+                    <br>
+                    <a class="button small-margin block" href="{{ path('admin') }}/message/{{user.id }}" >Envoyer un message</a>
+                </div>
+
+                <div class="col-md-6 ">
+                    <p class="">Id: {{ user.id }}</p>
+                    <p class="">Email: {{ user.email }}</p>
+                    <p class="">Anniversaire: {{ user.birthdayDate|localizeddate('none', 'none', 'fr', null, 'EEEE d MMMM Y') }}</p>
+                    <p class="">Compte crée le: {{ user.accountCreatedDate|localizeddate('none', 'none', 'fr', null, 'EEEE d MMMM Y à hh:mm') }}</p>
+                    <p class="">Statut: {{ user.userStatut }}</p>
+                    <p class="">Actif : 
+                        {% if user.isActive == 1%} 
+                            oui 
+                        {% else %} 
+                            non 
+                        {% endif %}
+                    </p>
+                    <p class="">Role: {{user.roles[0]}}</p>
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>Aucun utilisateur trouvé</p>
+    {% endif %}
+</div>
+{% endblock %}

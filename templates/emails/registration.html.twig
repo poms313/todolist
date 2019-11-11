@@ -1,0 +1,22 @@
+{% extends '/emails/baseEmail.html.twig' %}
+
+{% block body %}
+
+{% apply inline_css(source('email.css')) %}
+
+<div class="align-center margin border-grey">
+    <h1 class="textshadow-navy margin align-center">Bienvenue {{ name }} sur notre site!</h1>
+
+    <img src="{{ absolute_url(asset('images/logo.jpg')) }}">
+
+    <h2>Votre inscription est bien validée</h2>
+
+    <p>Vous pouvez vous connecter sur votre espace personnel en utilsant le lien suivant:</p>
+
+    <h3> <a href="{{ url('login') }}">Connection</a></h3>
+
+    <p>Merci pour votre confiance</p>
+</div>
+
+{% endapply %}
+{% endblock %}
