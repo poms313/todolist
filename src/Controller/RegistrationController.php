@@ -3,12 +3,12 @@
 namespace App\Controller;
 
 /**
-   * RegistrationController
-   * 
-   * @package    Abstract
-   * @subpackage Controller
-   * @author     Pommine Fillatre <pommine@free.fr>
-   */
+ * RegistrationController
+ * 
+ * @package    Abstract
+ * @subpackage Controller
+ * @author     Pommine Fillatre <pommine@free.fr>
+ */
 
 use App\Form\UserType;
 use App\Entity\User;
@@ -21,46 +21,48 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 use App\Service\FileUploader;
 
 
-class RegistrationController extends AbstractController {
+class RegistrationController extends AbstractController
+{
 
     /**
-     * Create new user and send them a email
+     * Create new user
      * 
      * @Route("/inscription", name="register"))
      */
-    public function registerAction(Request $request, UserPasswordEncoderInterface $passwordEncoder, \Swift_Mailer $mailer, ValidatorInterface $validator, FileUploader $fileUploader): Response 
+    public function registerAction(Request $request, UserPasswordEncoderInterface $passwordEncoder, \Swift_Mailer $mailer, ValidatorInterface $validator, FileUploader $fileUploader): Response
     {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) 
-        {
+        if ($form->isSubmitted() && $form->isValid()) {
             // Encode the password
             $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
             $user->setPassword($password);
 
+            // configure the user
             $user->setIsActive(true);
             $user->setAccountCreatedDate(new \DateTime('now'));
             $user->setRoles(['ROLE_USER']);
 
+            // if profil image change name and save it
             $profilImage = $form['image']->getData();
             if ($profilImage) {
                 $imageFileName = $fileUploader->upload($profilImage);
                 $user->setUserPhoto($imageFileName);
             }
 
-
+            // chek if no errors
             $errors = $validator->validate($user);
             if (count($errors) > 0) {
                 return new Response((string) $errors, 400);
             }
-            
+
             // Save the User!
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
             $entityManager->flush();
-            
+
             // Send a email to the User and add flash message!
             $this->sendEmailConfirmRegistration($user->getUserName(), $user->getEmail(), $mailer);
             $this->addFlash('success', 'Votre compte a bien été enregistré.');
@@ -68,9 +70,10 @@ class RegistrationController extends AbstractController {
             return $this->redirectToRoute('members');
         }
         return $this->render('members/userData.html.twig', [
-            'user_form' => $form->createView(), 
-            'mainNavRegistration' => true, 
-            'title' => 'Inscription']);
+            'user_form' => $form->createView(),
+            'mainNavRegistration' => true,
+            'title' => 'Inscription'
+        ]);
     }
 
 
@@ -87,16 +90,12 @@ class RegistrationController extends AbstractController {
             ->setTo($userEmail)
             ->setBody(
                 $this->renderView(
-                    // templates/emails/registration.html.twig
                     'emails/registration.html.twig',
                     ['name' => $userName]
                 ),
                 'text/html'
             );
 
-            $mailer->send($message);
+        $mailer->send($message);
     }
-
-    
-
 }

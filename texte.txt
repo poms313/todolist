@@ -1,16 +1,15 @@
 
 
-add menu user connected admin...
 
 
 😜😄💆✅
-caledrier create task
 
-ajax
-http://localhost/php/public/index.php/membres
-get number membre
+
+traduction
+
 
 entity manager dans construct???
 
 
-git
+git add.
+git push

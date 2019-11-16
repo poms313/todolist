@@ -27,11 +27,11 @@ class UserRepository extends ServiceEntityRepository implements UserLoaderInterf
     }
 
     /**
-    * Connect by userName or email
-    * @param string $username or mail enter by the user
-    * @return User[] Returns an array of User objects or null
-    */
-   public function loadUserByUsername($username)
+     * Connect by userName or email
+     * @param string $username or mail enter by the user
+     * @return User[] Returns an array of User objects or null
+     */
+    public function loadUserByUsername($username)
     {
         var_dump($this);
         return $this->createQueryBuilder('u')
@@ -41,11 +41,6 @@ class UserRepository extends ServiceEntityRepository implements UserLoaderInterf
             ->getQuery()
             ->getOneOrNullResult();
     }
-
-
-
-
-
 
 
     // /**

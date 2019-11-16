@@ -2,8 +2,24 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div class="margin padding border-grey">
-        <h1>Bienvenue</h1>
-    </div>
-{% block content %}{% endblock %}
+<div class="margin padding border-grey align-center">
+    <h1>Bienvenue</h1>
+</div>
+<div class="border-grey margin padding align-center">
+    <p id="getCounts"></p>
+</div>
+
+<script>
+    // get conts number of users and count all tasks
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            counts = JSON.parse(this.responseText);
+            document.getElementById("getCounts").innerHTML = "<h3>Actuellement il y a " + counts[1] + " utilisateurs qui nous font confiance✅</h3><h4>Et " + counts[0] + " tâches en cours sur le site.</h4>";
+        }
+    };
+    xmlhttp.open("GET", "http://localhost/php/public/index.php/membres/ReturnCounts", true);
+    xmlhttp.send();
+</script>
+
 {% endblock %}

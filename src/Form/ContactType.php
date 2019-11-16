@@ -17,7 +17,7 @@ class ContactType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder      
+        $builder
             ->add('name', TextType::class, array(
                 'label' => 'Votre nom'
             ))
@@ -29,12 +29,11 @@ class ContactType extends AbstractType
             ->add('message', TextareaType::class, array(
                 'label' => 'Votre message'
             ))
-            
+
             ->add('submit', SubmitType::class, [
-                'label'=>'Valider',
-                'attr'=>['class'=>'button btn-block']
-            ])
-            ;
+                'label' => 'Valider',
+                'attr' => ['class' => 'button btn-block']
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

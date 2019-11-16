@@ -1,11 +1,7 @@
 
-<style>
-  
-</style>
-  
 <div class="container-fluid menu">
     <div class="col-md-2 center">
-      <img src="{{ absolute_url(asset('images/logo.jpg')) }}">
+      <img src="{{ absolute_url(asset('images/logo.jpg')) }}" alt="logo">
     </div>
 
     <div class="col-md-10">
@@ -23,32 +19,27 @@
           <span class="icon-bar test"></span>
           <span class="icon-bar"></span>                        
         </button>
-        
         <a class="navbar-brand" href="{{ path('home') }}">To do list</a>
     </div>
+
     <div>
       <div class="collapse navbar-collapse" id="myNavbar">
         <ul class="nav navbar-nav">
-            <li><a class="nav-link nav-item" href="{{ path('members') }}">Membres</a></li>
-            <li><a class="nav-link nav-item" href="{{ path('members_modify') }}">membre mofif</a></li>
-            <li><a class="nav-link nav-item" href="{{ path('admin') }}">Admin</a></li>
-            <li><a class="nav-link nav-item" href="{{ path('register') }}">Inscription</a></li>
-            <li><a class="nav-link nav-item" href="{{ path('login') }}">Connexion</a></li>
-            <li><a class="nav-link nav-item text-muted" href="{{ path('logout') }}">Déconnexion</a></li>
+            {# change the menu according to the roles of the user #}
+            {% if is_granted('ROLE_ADMIN') %}
+              <li><a class="nav-link nav-item" href="{{ path('admin') }}">Administration</a></li>
+            {% endif %}
+            {% if is_granted('ROLE_USER') %}
+              <li><a class="nav-link nav-item" href="{{ path('members') }}">Mon espace</a></li>
+              <li><a class="nav-link nav-item" href="{{ path('newTask') }}">Nouvelle tâche</a></li>
+              <li><a class="nav-link nav-item" href="{{ path('task') }}">Liste des tâches</a></li>
+              <li><a class="nav-link nav-item text-muted" href="{{ path('logout') }}">Déconnexion</a></li>
+            {% else %}
+              <li><a class="nav-link nav-item" href="{{ path('register') }}">Inscription</a></li>
+              <li><a class="nav-link nav-item" href="{{ path('login') }}">Connexion</a></li>
+            {% endif %}           
             <li><a class="nav-link nav-item" href="{{ path('test') }}">test </a></li>
             <li><a class="nav-link nav-item" href="{{ path('contact') }}">Contact</a></li>
-            <li><a class="nav-link nav-item" href="{{ path('task') }}">tâche</a></li>
-            <li><a class="nav-link nav-item" href="{{ path('newTask') }}">Nouvelle tâche</a></li>
-            <li><a class="nav-link nav-item" href="{{ path('udpade_tasks') }}">udpade_taskse</a></li>
-
-          
-          <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Section 4 <span class="caret"></span></a>
-            <ul class="dropdown-menu">
-              <li><a href="#section41">Section 4-1</a></li>
-              <li><a href="#section42">Section 4-2</a></li>
-            </ul>
-          </li>
-
         </ul>
       </div>
     </div>

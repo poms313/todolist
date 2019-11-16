@@ -1,8 +1,56 @@
 {% extends 'base.html.twig' %}
 
+
+
+
 {% block title %}Hello TestController!{% endblock %}
 
 {% block body %}
+
+<div class="border-grey margin padding">
+<p id="demo"></p>
+</div>
+<div class="border-grey margin padding">
+
+
+    <div id='calendar'></div>
+    </div>
+   <script>
+
+/*
+var xmlhttp = new XMLHttpRequest();
+
+xmlhttp.onreadystatechange = function() {
+    
+  if (this.readyState == 4 && this.status == 200) {
+    myObj = JSON.parse(this.responseText);
+    
+    document.getElementById("demo").innerHTML = object.end;
+  }
+};
+xmlhttp.open("GET", "http://localhost/php/public/index.php/test", true);
+xmlhttp.send();
+*/
+ /*     document.addEventListener('DOMContentLoaded', function () {
+          var calendarEl = document.getElementById('calendar');
+
+          var calendar = new FullCalendar.Calendar(calendarEl, {
+              plugins: ['dayGrid'],
+              defaultDate: Date.now(),
+              locale: 'fr',
+              header: {
+                  left: 'prev',
+                  center: 'title',
+                  right: 'next'
+              },
+              
+              events: 'http://localhost/php/public/index.php/test',
+          });
+
+          calendar.render();
+      });*/
+
+    </script>
 
 
 

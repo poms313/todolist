@@ -27,10 +27,10 @@ class TaskType extends AbstractType
 
             ->add('taskCategory', ChoiceType::class, array(
                 'choices' => array(
-                'Travail' => 'Travail',
-                'Loisir' => 'Loisir',
-                'Personnel' => 'Personnel',
-                'Obligation' => 'Obligation',
+                    'Travail' => 'Travail',
+                    'Loisir' => 'Loisir',
+                    'Personnel' => 'Personnel',
+                    'Obligation' => 'Obligation',
                 ),
                 'label' => 'Catégorie'
             ))
@@ -59,10 +59,9 @@ class TaskType extends AbstractType
             ])
 
             ->add('submit', SubmitType::class, [
-                'label'=>'Valider',
-                'attr'=>['class'=>'button btn-block']
-            ])
-        ;
+                'label' => 'Valider',
+                'attr' => ['class' => 'button btn-block']
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

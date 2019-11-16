@@ -11,13 +11,25 @@
 
     <h1 class="margin">{{ userName }}, </h1>
     <h2 class="margin">Voici la liste de vos tâches:</h2>
-
+    <p>Chaque tâche à une couleur différente en fonction de son statut:</p>
+    <div class="row">
+        <div class="col-md-3">
+            <p class="late">Noir: en retard, aurait déjà dû être fait</p>
+        </div>
+        <div class="col-md-3">
+            <p class="to-do">Rouge: a faire aujourd'hui, au plus vite</p>
+        </div>
+        <div class="col-md-3">
+            <p class="waiting">Vert: en attente, a faire bientôt</p>
+        </div>
+        <div class="col-md-3">
+            <p class="paused">Jaune: en pause, en attente d'action de votre part</p>
+        </div>
+    </div>
     {% if tasks %}
     {% for task in tasks %}
     {% if task.taskStatut == 'En attente' %}
-    <div class="margin padding waiting">
-    {% elseif task.taskStatut == 'Fait !'%}
-        <div class="margin padding made">
+        <div class="margin padding waiting">
     {% elseif task.taskStatut == 'A faire'%}
         <div class="margin padding to-do">
     {% elseif task.taskStatut == 'En pause'%}
@@ -25,32 +37,40 @@
     {% elseif task.taskStatut == 'En retard'%}
         <div class="margin padding late">
     {% endif %}
-            <div class="row">
-                <div class="col-md-6">
+            
+            <div class="small-margin row">
+                <div class="col-md-4">
                     <h2>{{ task.taskName }}</h2>
-                    <p>{{ task.taskDescription }}</p>
-                    <p>{{ task.taskStatut }}</p>
                 </div>
 
-                <div class="col-md-6">
-                    <h2>{{ task.taskStartDate |localizeddate('none', 'none', 'fr', null, 'EEEE d MMMM Y à HH:mm') }}</h2>
-                    <h2>{{ task.taskEndDate |localizeddate('none', 'none', 'fr', null, 'EEEE d MMMM Y à HH:mm') }}</h2>
+                <div class="col-md-4">
+                    <h4>Catégorie: {{ task.taskCategory }}</h4>
+                    <h4>Description: {{ task.taskDescription }}</h4>
+                    <h4>Statut: {{ task.taskStatut }}</h4>
+                </div>
+
+                <div class="col-md-4">
+                    <h4>Début:</h4>
+                    <p>{{ task.taskStartDate |localizeddate('none', 'none', 'fr', null, 'EEEE d MMMM Y') }}</p>
+                    <h4>Fin:</h4>  
+                    <p>{{ task.taskEndDate |localizeddate('none', 'none', 'fr', null, 'EEEE d MMMM Y') }}</p>
                 </div>
             </div>
             <div class="small-margin row">
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <a class="button block small-margin" href="{{ path('members') }}/taches/supprimer/{{ task.taskId }}"
                         onclick="if(window.confirm('Voulez-vous vraiment supprimer ?')){return true;}else{return false;}">
                         Supprimer 👎</a>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-4">
+                    {% if task.taskStatut == 'En pause' %}
+                    <a class="button block small-margin" href="{{ path('members') }}/taches/reprendre/{{ task.taskId }}">Reprendre</a>
+                    {% else %}
                     <a class="button block small-margin" href="{{ path('members') }}/taches/pause/{{ task.taskId }}">Pause</a>
+                    {% endif %}
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <a class="button block small-margin" href="{{ path('members') }}/taches/fait/{{ task.taskId }}">Fait ✅</a>
-                </div>
-                <div class="col-md-3">
-                    <a class="button block small-margin" href="{{ path('members') }}/taches/fait/supprimer/{{ task.taskId }}">Fait et supprimer ✅</a>
                 </div>                
             </div>
 

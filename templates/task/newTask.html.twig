@@ -1,0 +1,15 @@
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello TaskController!{% endblock %}
+
+{% block body %}
+
+<div class="margin padding border-grey">
+    <h2>Nouvelle tâche</h2>
+    {{ form_start(task_form) }}
+    {{ form_widget(task_form) }}
+    {{ form_end(task_form) }}
+</div>
+
+{% endblock %}

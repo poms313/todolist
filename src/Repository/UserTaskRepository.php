@@ -20,96 +20,78 @@ class UserTaskRepository extends ServiceEntityRepository
     }
 
     /**
-    * Returns an array of UserTask objects where date is smaller than actual date
-    * @param string $actualDate 
-    * @return UserTask[] 
-    */
+     * Returns an array of UserTask objects where date is smaller than actual date
+     * @param string $actualDate 
+     * @return UserTask[] 
+     */
     public function findAllSmallerThanActualDateByUserId($actualDate, $userId): array
     {
         return $this->createQueryBuilder('u')
-        ->andWhere('u.taskStartDate < :actualDate')
-        ->andWhere('u.taskIdOwnerUser = :userId')
-        ->setParameter('actualDate', $actualDate)
-        ->setParameter('userId', $userId)
-        ->orderBy('u.taskStartDate', 'ASC')
-        ->getQuery()
-        ->getResult()
-        ;
+            ->andWhere('u.taskStartDate < :actualDate')
+            ->andWhere('u.taskIdOwnerUser = :userId')
+            ->setParameter('actualDate', $actualDate)
+            ->setParameter('userId', $userId)
+            ->orderBy('u.taskStartDate', 'ASC')
+            ->getQuery()
+            ->getResult();
     }
 
 
     /**
-    * Returns an array of UserTask objects where date is bigger than actual date
-    * @param string $actualDate 
-    * @return UserTask[] 
-    */
+     * Returns an array of UserTask objects where date is bigger than actual date
+     * @param string $actualDate 
+     * @return UserTask[] 
+     */
     public function findAllBiggerThanActualDateByUserId($actualDate, $userId): array
     {
         return $this->createQueryBuilder('u')
-        ->andWhere('u.taskStartDate > :actualDate')
-        ->andWhere('u.taskIdOwnerUser = :userId')
-        ->setParameter('actualDate', $actualDate)
-        ->setParameter('userId', $userId)
-        ->orderBy('u.taskStartDate', 'ASC')
-        ->getQuery()
-        ->getResult()
-        ;
+            ->andWhere('u.taskStartDate > :actualDate')
+            ->andWhere('u.taskIdOwnerUser = :userId')
+            ->setParameter('actualDate', $actualDate)
+            ->setParameter('userId', $userId)
+            ->orderBy('u.taskStartDate', 'ASC')
+            ->getQuery()
+            ->getResult();
     }
 
+
+    /**
+     * Returns an array of UserTask objects where date is smaller than actual date
+     * @param string $actualDate 
+     * @return UserTask[] 
+     */
     public function findAllSmallerOrEgualThanActualDate($actualDate): array
     {
         return $this->createQueryBuilder('u')
-        ->andWhere('u.taskStartDate <= :actualDate')
-        ->setParameter('actualDate', $actualDate)
-        ->orderBy('u.taskStartDate', 'ASC')
-        ->getQuery()
-        ->getResult()
-        ;
+            ->andWhere('u.taskStartDate <= :actualDate')
+            ->setParameter('actualDate', $actualDate)
+            ->orderBy('u.taskStartDate', 'ASC')
+            ->getQuery()
+            ->getResult();
     }
 
+
+    /**
+     * Returns an array with all UserTask objects where date is smaller than actual date for sending email
+     * @param string $actualDate 
+     * @param string $todo task statut
+     * @param string $late task statut
+     * @param string $numberAlertMax
+     * 
+     * @return UserTask[] 
+     */
     public function findAllTaskbyUserWithPastDate($userId, $todo, $late, $numberAlertMax): array
     {
         return $this->createQueryBuilder('u')
-        ->andWhere('u.taskIdOwnerUser = :userId')
-        ->andWhere('u.taskStatut = :toDo OR u.taskStatut = :late')
-        ->andWhere('u.taskNumberOfRemberEmail <= :numberAlertMax')
-        ->setParameter('userId', $userId)
-        ->setParameter('toDo', $todo)
-        ->setParameter('late', $late)
-        ->setParameter('numberAlertMax', $numberAlertMax)
-        ->orderBy('u.taskStartDate', 'ASC')
-        ->getQuery()
-        ->getResult()
-        ;
-    }
-
-
-    // /**
-    //  * @return UserTask[] Returns an array of UserTask objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('u')
-            ->andWhere('u.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('u.id', 'ASC')
-            ->setMaxResults(10)
+            ->andWhere('u.taskIdOwnerUser = :userId')
+            ->andWhere('u.taskStatut = :toDo OR u.taskStatut = :late')
+            ->andWhere('u.taskNumberOfRemberEmail <= :numberAlertMax')
+            ->setParameter('userId', $userId)
+            ->setParameter('toDo', $todo)
+            ->setParameter('late', $late)
+            ->setParameter('numberAlertMax', $numberAlertMax)
+            ->orderBy('u.taskStartDate', 'ASC')
             ->getQuery()
-            ->getResult()
-        ;
+            ->getResult();
     }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?UserTask
-    {
-        return $this->createQueryBuilder('u')
-            ->andWhere('u.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }

@@ -130,7 +130,7 @@ class User implements UserInterface, \Serializable
         return $this->id;
     }
 
-    public function setId(): ?int
+    public function setId(int $id): ?int
     {
         $this->id = $id;
     }
@@ -143,7 +143,6 @@ class User implements UserInterface, \Serializable
     public function setUserName(string $userName): self
     {
         $this->userName = $userName;
-
         return $this;
     }
 
@@ -171,7 +170,7 @@ class User implements UserInterface, \Serializable
     }
 
 
-    public function getBirthdayDate(): ?\DateTimeInterface
+    public function getBirthdayDate()
     {
         return $this->birthdayDate;
     }
@@ -183,7 +182,7 @@ class User implements UserInterface, \Serializable
     }
 
 
-    public function getAccountCreatedDate(): ?\DateTimeInterface
+    public function getAccountCreatedDate()
     {
         return $this->accountCreatedDate;
     }

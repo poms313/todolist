@@ -1,18 +1,18 @@
 /* Menu rules */
 
 .menu {
-    height: 200px;
-    background-image: url(../images/header-background.jpg);
-    background-attachment: fixed;
-    background-size: cover;
-    text-align: center;
-    color: #fff;
+  height: 200px;
+  background-image: url(../images/header-background.jpg);
+  background-attachment: fixed;
+  background-size: cover;
+  text-align: center;
+  color: #fff;
 }
 
 .menu img {
-    height: 164px;
-    margin-top: 20px;
-    display: block
+  height: 164px;
+  margin-top: 20px;
+  display: block
 }
 
 /* nav bar before scrolling*/
@@ -33,7 +33,7 @@
   background-color: rgb(65, 65, 65);
   border-color: rgb(49, 3, 0);
   z-index: 9999;
-   
+
 }
 
 .affix a {
@@ -42,19 +42,19 @@
   -webkit-transition: all .5s ease-in-out;
   transition: all .5s ease-in-out;
   font-weight: 600;
-  }
+}
 
 .affix a:hover {
   color: rgb(75, 75, 75);
 }
-  
+
 /*
   .affix-top a {
     padding: 25px !important;
   }
 */
 
-.affix + .container-fluid {
+.affix+.container-fluid {
   padding-top: 95px;
 }
 
@@ -70,9 +70,7 @@
   background-color: rgb(189, 189, 189);
 }
 
-.affix ~ .container-fluid {
+.affix~.container-fluid {
   position: relative;
   top: 50px;
 }
-
-

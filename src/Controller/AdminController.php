@@ -3,13 +3,13 @@
 
 namespace App\Controller;
 
-  /**
-   * AdminController
-   * 
-   * @package    Abstract
-   * @subpackage Controller
-   * @author     Pommine Fillatre <pommine@free.fr>
-   */
+/**
+ * AdminController
+ * 
+ * @package    Abstract
+ * @subpackage Controller
+ * @author     Pommine Fillatre <pommine@free.fr>
+ */
 
 use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -22,8 +22,8 @@ use App\Form\ContactType;
 
 class AdminController extends AbstractController
 {
-    function __construct() {
-    }
+    function __construct()
+    { }
 
     /**
      * Home page of admin area
@@ -42,7 +42,7 @@ class AdminController extends AbstractController
         ]);
     }
 
-     /**
+    /**
      * Delete users
      * 
      * @Route("/admin/supprimer/{id}", methods={"GET","HEAD"})
@@ -54,7 +54,7 @@ class AdminController extends AbstractController
         $user = $entityManager->getRepository(User::class)->find($id);
         $entityManager->remove($user);
         $entityManager->flush();
-        
+
         $this->addFlash('success', 'Le membre a bien été supprimé!');
 
         return $this->redirectToRoute('admin');
@@ -68,15 +68,14 @@ class AdminController extends AbstractController
      */
     public function sendEmailToUser(int $id, Request $request, \Swift_Mailer $mailer)
     {
+        // reused contact form
         $form = $this->createForm(ContactType::class);
-        $form -> remove ( 'from' );
-        $form -> remove ( 'name' );
+        $form->remove('from');
+        $form->remove('name');
 
         $form->handleRequest($request);
-        
-        if ($form->isSubmitted() && $form->isValid()) 
-        {
 
+        if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
             $user = $entityManager->getRepository(User::class)->find($id);
             $contactFormData = $form->getData();
@@ -86,15 +85,17 @@ class AdminController extends AbstractController
                 ->setTo($user->getEmail())
                 ->setBody(
                     $this->renderView(
-                        'emails/sendToMember.html.twig', [
-                        'userName' => $user->getUserName(),
-                        'message' => $contactFormData['message'],
-                    ]),
+                        'emails/sendToMember.html.twig',
+                        [
+                            'userName' => $user->getUserName(),
+                            'message' => $contactFormData['message'],
+                        ]
+                    ),
                     'text/html'
                 );
-                
+
             $mailer->send($message);
-        
+
             $this->addFlash('success', 'Le message a bien été envoyé!');
 
             return $this->redirectToRoute('admin');
@@ -102,15 +103,6 @@ class AdminController extends AbstractController
 
         return $this->render('/admin/sendmessagetomembers.html.twig', [
             'contact_form' => $form->createView(),
-            ]);
-        
+        ]);
     }
-
-  /*  public function listAllUsers( UserRepository $repository)
-    {
-       // $repository = $this->getDoctrine()->getRepository(User::class);
-        $users = $repository->findAll();
-var_dump($users);
-      //  return new Response('Check out this great product: '.$users->getUserName());
-    }*/
 }

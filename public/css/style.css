@@ -1,9 +1,7 @@
-
-
 .border-grey {
-    box-shadow:-10px 10px 20px rgba(66, 66, 66, 0.6) inset,
-            10px -10px 20px rgba(32, 32, 32, 0.6) inset;
-    background-color: rgb(228, 228, 228);  
+    box-shadow: -10px 10px 20px rgba(66, 66, 66, 0.6) inset,
+        10px -10px 20px rgba(32, 32, 32, 0.6) inset;
+    background-color: rgb(228, 228, 228);
 }
 
 .justify {
@@ -31,7 +29,7 @@
     padding: 15px;
 }
 
-.center{
+.center {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -60,4 +58,3 @@
 .background-white {
     background-color: #FFF;
 }
-

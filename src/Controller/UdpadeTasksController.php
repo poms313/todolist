@@ -16,13 +16,14 @@ class UdpadeTasksController extends AbstractController
     {
         $markAsToDo = $this->markAsToDo();
         $sendRememberEmail = $this->sendRememberEmail($mailer);
-        
+
         return $this->render('udpade_tasks/index.html.twig', [
             'markAsToDo' => $markAsToDo,
             'sendRememberEmail' => $sendRememberEmail,
         ]);
     }
 
+    // change status old task and today start date
     public function markAsToDo()
     {
         // add 1 day to the current date to select tasks to do soon
@@ -30,42 +31,41 @@ class UdpadeTasksController extends AbstractController
         $futureDateTime = $actualDateTime;
         $futureDateTime->modify('+1 day');
 
-        // All tasks who start today or before
+        // get all tasks who start today or before
         $tasks = $this->getDoctrine()
             ->getRepository(UserTask::class)
             ->findAllSmallerOrEgualThanActualDate($futureDateTime);
 
-        foreach($tasks as $task) {
-            // if the statut is not 'A faire' or 'En retard'           
-            if (strcmp($task->getTaskStatut(), 'A faire') == 1 || strcmp($task->getTaskStatut(), 'En retard') == 1) {
-
+        foreach ($tasks as $task) {
+            // if the statut is not 'En retard'           
+            if (strcmp($task->getTaskStatut(), 'En retard') == 1) {
                 $entityManager = $this->getDoctrine()->getManager();
                 $taskToModify = $entityManager->getRepository(UserTask::class)->find($task->getTaskId());
 
                 // check if the task start date is today
                 $actualDateTime = new \DateTime('now');
-                $firstDate = date_format($task->getTaskStartDate(), 'Y-m-d');
-                $secondDate = date_format($actualDateTime, 'Y-m-d');
+                $taskDate = date_format($task->getTaskStartDate(), 'Y-m-d');
+                $actualDate = date_format($actualDateTime, 'Y-m-d');
 
-                // modify statut
-                if ($firstDate == $secondDate) {
+                // modify statut "a faire" if task start date is today
+                if ($taskDate == $actualDate) {
                     $taskToModify->setTaskStatut('A faire');
                 } else {
                     $taskToModify->setTaskStatut('En retard');
                 }
                 $entityManager->flush();
-                
             }
         }
         return 'Les statuts des tâches ont bien été changés';
     }
 
+    // send a mail to eash user who have tasks to do
     public function sendRememberEmail($mailer)
     {
         $allUsers = $this->getDoctrine()
             ->getRepository(User::class)
-            ->findAll();    
-        
+            ->findAll();
+
         // for each user
         foreach ($allUsers as $user) {
             $userId = $user->getId();
@@ -88,7 +88,7 @@ class UdpadeTasksController extends AbstractController
                 //change the number of remember mail send by task
                 foreach ($tasks as $task) {
                     $newNumemberOfRememberEmail = $task->getTaskNumberOfRemberEmail();
-                    $newNumemberOfRememberEmail ++;
+                    $newNumemberOfRememberEmail++;
                     $task->setTaskNumberOfRemberEmail($newNumemberOfRememberEmail);
                 }
                 $entityManager->flush();
@@ -99,17 +99,17 @@ class UdpadeTasksController extends AbstractController
                     ->setTo($userEmail)
                     ->setBody(
                         $this->renderView(
-                            'emails/remember.html.twig', [
-                            'userName' => $userName,
-                            'tasks' => $tasks,
-                        ]),
+                            'emails/remember.html.twig',
+                            [
+                                'userName' => $userName,
+                                'tasks' => $tasks,
+                            ]
+                        ),
                         'text/html'
                     );
                 $mailer->send($message);
             }
         }
-        return 'Les emails de notification ont bien été envoyés';        
-       }
-
-
+        return 'Les emails de notification ont bien été envoyés';
+    }
 }

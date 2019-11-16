@@ -97,7 +97,11 @@ class UserTask
 
     public function setTaskEndDate(\DateTimeInterface $taskEndDate): self
     {
-        $this->taskEndDate = $taskEndDate;
+        if ($this->taskStartDate < $taskEndDate) {
+            $this->taskEndDate = $taskEndDate;
+        } else {
+            $this->taskEndDate = $this->taskStartDate;
+        }
         return $this;
     }
 

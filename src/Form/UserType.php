@@ -21,74 +21,76 @@ use Symfony\Component\Validator\Constraints\File;
 
 
 
-class UserType extends AbstractType {
+class UserType extends AbstractType
+{
 
-    public function buildForm(FormBuilderInterface $builder, array $options) {
+    public function buildForm(FormBuilderInterface $builder, array $options)
+    {
         $builder
-                ->add('email', EmailType::class, array(
-                    'label' => 'Votre email'
-                ))
+            ->add('email', EmailType::class, array(
+                'label' => 'Votre email'
+            ))
 
-                ->add('userName', TextType::class, array(
-                    'label' => 'Nom d\'utilisateur'
-                ))
+            ->add('userName', TextType::class, array(
+                'label' => 'Nom d\'utilisateur'
+            ))
 
-                ->add('plainPassword', RepeatedType::class, array(
-                    'type' => PasswordType::class,
-                    'help' => 'Votre mot de passse sera stocké de manière sécurisée',
-                    'first_options' => array('label' => 'Mot de passe'),
-                    'second_options' => array('label' => 'Confirmation du mot de passe'),
-                ))
+            ->add('plainPassword', RepeatedType::class, array(
+                'type' => PasswordType::class,
+                'help' => 'Votre mot de passse sera stocké de manière sécurisée',
+                'first_options' => array('label' => 'Mot de passe'),
+                'second_options' => array('label' => 'Confirmation du mot de passe'),
+            ))
 
-                ->add('birthdayDate', BirthdayType::class, [
-                    'placeholder' => [
-                        'day' => 'Jour', 'month' => 'Mois', 'year' => 'Année' 
-                        ],
-                    'format' => 'dd-MM-yyyy',
-                    'label' => 'Votre date de naissance'
-                ])
+            ->add('birthdayDate', BirthdayType::class, [
+                'placeholder' => [
+                    'day' => 'Jour', 'month' => 'Mois', 'year' => 'Année'
+                ],
+                'format' => 'dd-MM-yyyy',
+                'label' => 'Votre date de naissance',
+                'required' => false,
+            ])
 
-                ->add('userStatut', ChoiceType::class, array(
-                    'choices' => array(
+            ->add('userStatut', ChoiceType::class, array(
+                'choices' => array(
                     'Vous êtes un particulier' => 'particulier',
                     'Vous êtes un professionnel' => 'professionnel',
-                    ),
-                    'label' => 'Votre statut'
-                ))
+                ),
+                'label' => 'Votre statut'
+            ))
 
-                ->add('termsAccepted', CheckboxType::class, array(
+            ->add('termsAccepted', CheckboxType::class, array(
                 'mapped' => false,
                 'constraints' => new IsTrue(),
                 'label' => 'Vous acceptez les conditions d\'utilisations'
-                ))
+            ))
 
-                ->add('image', FileType::class, [
-                    'label' => 'Ajouter une photo de profil',
-                    'mapped' => false,
-                    'required' => false,
-                    'constraints' => [
-                        new File([
-                            'maxSize' => '3024k',
-                            'mimeTypes' => [
-                                'image/jpeg',
-                                'image/jpg',
-                                'image/WebP',
-                                'image/tif',
-                                'image/png',
-                                'image/gif',
-                                'image/bmp',
-                                'image/svg',
-                            ],
-                            'mimeTypesMessage' => 'Merci de télécharger une image au format jpeg, jpg, webp, tif, png, gif, bmp ou svg',
-                        ])
-                    ],
-                ])
-               
-                ->add('submit', SubmitType::class, [
-                    'label'=>'Envoyer',
-                    'attr'=>['class'=>'button btn-block']
-                ])
-        ;
+            ->add('image', FileType::class, [
+                'label' => 'Ajouter une photo de profil',
+                'mapped' => false,
+                'required' => false,
+                'constraints' => [
+                    new File([
+                        'maxSize' => '3024k',
+                        'mimeTypes' => [
+                            'image/jpeg',
+                            'image/jpg',
+                            'image/WebP',
+                            'image/tif',
+                            'image/png',
+                            'image/gif',
+                            'image/bmp',
+                            'image/svg',
+                        ],
+                        'mimeTypesMessage' => 'Merci de télécharger une image au format jpeg, jpg, webp, tif, png, gif, bmp ou svg',
+                    ])
+                ],
+            ])
+
+            ->add('submit', SubmitType::class, [
+                'label' => 'Envoyer',
+                'attr' => ['class' => 'button btn-block']
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

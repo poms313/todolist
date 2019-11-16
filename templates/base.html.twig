@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -10,17 +10,22 @@
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
             <link rel="icon" type="image/png" sizes="32x32" href={{ absolute_url(asset('images/logo.jpg')) }}>
-            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-            <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/css/bootstrap-datepicker.css">
+             <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/css/bootstrap-datepicker.css">
             {# custom #}
             <link href="{{ asset('css/style.css') }}" rel="stylesheet" />
             <link href="{{ asset('css/menu.css') }}" rel="stylesheet" />
             <link href="{{ asset('css/elements.css') }}" rel="stylesheet" />
             <link href="{{ asset('css/responsive.css') }}" rel="stylesheet" />
-            <link href="{{ asset('css/anims.css.css') }}" rel="stylesheet" />
+            <link href="{{ asset('css/anims.css') }}" rel="stylesheet" />
             <link href="{{ asset('css/footer.css') }}" rel="stylesheet" />
+            <link href="{{ asset('fullcalendar/core/main.css') }}" rel='stylesheet' />
+            <link href="{{ asset('fullcalendar/daygrid/main.css') }}" rel='stylesheet' />
+            <script src="{{ asset('fullcalendar/core/main.js') }}"></script>
+            <script src="{{ asset('fullcalendar/daygrid/main.js') }}"></script>  
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>       
         {% endblock %}
+        
     </head>
     <body data-spy="scroll" data-target=".navbar" data-offset="50">
         {{ include('menu.html.twig') }}
