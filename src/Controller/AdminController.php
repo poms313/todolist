@@ -45,7 +45,7 @@ class AdminController extends AbstractController
     /**
      * Delete users
      * 
-     * @Route("/admin/supprimer/{id}", methods={"GET","HEAD"})
+     * @Route("admin/supprimer/{id}", methods={"GET","HEAD"})
      * @param int $ id id of user to delete
      */
     public function deleteUser(int $id)
@@ -63,7 +63,7 @@ class AdminController extends AbstractController
     /**
      * Send message to the user
      * 
-     * @Route("/admin/message/{id}", methods={"GET","HEAD", "POST"})
+     * @Route("admin/message/{id}", methods={"GET","HEAD", "POST"})
      * @param int $ id id of user to send message
      */
     public function sendEmailToUser(int $id, Request $request, \Swift_Mailer $mailer)
@@ -85,7 +85,7 @@ class AdminController extends AbstractController
                 ->setTo($user->getEmail())
                 ->setBody(
                     $this->renderView(
-                        'emails/sendToMember.html.twig',
+                        'emails/send_to_member.html.twig',
                         [
                             'userName' => $user->getUserName(),
                             'message' => $contactFormData['message'],

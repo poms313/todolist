@@ -53,6 +53,11 @@ class UserTask
     private $taskNumberOfRemberEmail;
 
     /**
+     * @ORM\Column(type="integer", options={"default" : 6})
+     */
+    private $taskNumberMaxEmail;
+
+    /**
      * @ORM\Column(type="string", length=100, options={"default" : "En attente"})
      */
     private $taskStatut;
@@ -150,6 +155,18 @@ class UserTask
     public function setTaskNumberOfRemberEmail(?int $taskNumberOfRemberEmail): self
     {
         $this->taskNumberOfRemberEmail = $taskNumberOfRemberEmail;
+        return $this;
+    }
+
+
+    public function getTaskNumberMaxEmail(): ?int
+    {
+        return $this->taskNumberMaxEmail;
+    }
+
+    public function setTaskNumberMaxEmail(?int $taskNumberMaxEmail): self
+    {
+        $this->taskNumberMaxEmail = $taskNumberMaxEmail;
         return $this;
     }
 

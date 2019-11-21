@@ -10,7 +10,7 @@ use App\Entity\User;
 class UdpadeTasksController extends AbstractController
 {
     /**
-     * @Route("admin/udpade/tasks", name="udpade_tasks")
+     * @Route("udpade/tasks", name="udpade_tasks")
      */
     public function index(\Swift_Mailer $mailer)
     {
@@ -38,7 +38,7 @@ class UdpadeTasksController extends AbstractController
 
         foreach ($tasks as $task) {
             // if the statut is not 'En retard'           
-            if (strcmp($task->getTaskStatut(), 'En retard') == 1) {
+            if ($task->getTaskStatut() !== 'En retard') {
                 $entityManager = $this->getDoctrine()->getManager();
                 $taskToModify = $entityManager->getRepository(UserTask::class)->find($task->getTaskId());
 
@@ -75,14 +75,13 @@ class UdpadeTasksController extends AbstractController
             // For each user, check list of tasks with statut "a faire" ou "en retard" and number max of alerts is not reachead
             $todo = 'A faire';
             $late = 'En retard';
-            $numberAlertMax = $this->getParameter('app.numberOfRememberEmail');
 
             $entityManager = $this->getDoctrine()->getManager();
             $tasks = $entityManager
                 ->getRepository(UserTask::class)
-                ->findAllTaskbyUserWithPastDate($userId, $todo, $late, $numberAlertMax);
+                ->findAllTaskbyUserWithPastDate($userId, $todo, $late);
 
-            // only if there are expired or today start tasks
+            // only if there are expired or today start tasks 
             if (!empty($tasks)) {
 
                 //change the number of remember mail send by task
@@ -90,11 +89,17 @@ class UdpadeTasksController extends AbstractController
                     $newNumemberOfRememberEmail = $task->getTaskNumberOfRemberEmail();
                     $newNumemberOfRememberEmail++;
                     $task->setTaskNumberOfRemberEmail($newNumemberOfRememberEmail);
+
+                    // if the number max of aletrs is reachead delete the tasks of the list for sending
+                    if ($task->getTaskNumberOfRemberEmail() > $task->getTaskNumberMaxEmail()) {
+                        unset($tasks[array_search($task, $tasks)]);
+                    }
                 }
                 $entityManager->flush();
-
-                // send a remember mail to each user
-                $message = (new \Swift_Message('Rappel de vos tâches à faire'))
+      
+                //check if there are still spots to send after filtering to not send an empty email
+                if (!empty($tasks)) {
+                    $message = (new \Swift_Message('Rappel de vos tâches à faire'))
                     ->setFrom($this->getParameter('app.myEmail'))
                     ->setTo($userEmail)
                     ->setBody(
@@ -107,7 +112,9 @@ class UdpadeTasksController extends AbstractController
                         ),
                         'text/html'
                     );
-                $mailer->send($message);
+                    // send a remember mail to each user with undoing tasks
+                    $mailer->send($message);
+                }
             }
         }
         return 'Les emails de notification ont bien été envoyés';

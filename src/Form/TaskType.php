@@ -58,6 +58,21 @@ class TaskType extends AbstractType
                 ]
             ])
 
+            ->add('taskNumberMaxEmail', ChoiceType::class, array(
+                    'choices' => array(
+                        '1' => 1,
+                        '2' => 2,
+                        '3' => 3,
+                        '4' => 4,
+                        '5' => 5,
+                        '10' => 10,
+                        '20' => 20,
+                        '50' => 50,
+                        '100' => 100,
+                    ),
+                    'label' => 'Nombre de mails de rappel'
+            ))
+
             ->add('submit', SubmitType::class, [
                 'label' => 'Valider',
                 'attr' => ['class' => 'button btn-block']

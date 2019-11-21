@@ -80,16 +80,14 @@ class UserTaskRepository extends ServiceEntityRepository
      * 
      * @return UserTask[] 
      */
-    public function findAllTaskbyUserWithPastDate($userId, $todo, $late, $numberAlertMax): array
+    public function findAllTaskbyUserWithPastDate($userId, $todo, $late): array
     {
         return $this->createQueryBuilder('u')
             ->andWhere('u.taskIdOwnerUser = :userId')
             ->andWhere('u.taskStatut = :toDo OR u.taskStatut = :late')
-            ->andWhere('u.taskNumberOfRemberEmail <= :numberAlertMax')
             ->setParameter('userId', $userId)
             ->setParameter('toDo', $todo)
             ->setParameter('late', $late)
-            ->setParameter('numberAlertMax', $numberAlertMax)
             ->orderBy('u.taskStartDate', 'ASC')
             ->getQuery()
             ->getResult();

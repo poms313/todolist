@@ -6,12 +6,10 @@
         <title>{% block title %}Gestionnaire de tâches!{% endblock %}</title>
 
         {% block stylesheets %}
-            {# bootstrap #}
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
             <link rel="icon" type="image/png" sizes="32x32" href={{ absolute_url(asset('images/logo.jpg')) }}>
-             <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/css/bootstrap-datepicker.css">
-            {# custom #}
+            <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/css/bootstrap-datepicker.css">
             <link href="{{ asset('css/style.css') }}" rel="stylesheet" />
             <link href="{{ asset('css/menu.css') }}" rel="stylesheet" />
             <link href="{{ asset('css/elements.css') }}" rel="stylesheet" />
@@ -20,6 +18,7 @@
             <link href="{{ asset('css/footer.css') }}" rel="stylesheet" />
             <link href="{{ asset('fullcalendar/core/main.css') }}" rel='stylesheet' />
             <link href="{{ asset('fullcalendar/daygrid/main.css') }}" rel='stylesheet' />
+            <script src="{{ asset('js/snow.js') }}"></script>
             <script src="{{ asset('fullcalendar/core/main.js') }}"></script>
             <script src="{{ asset('fullcalendar/daygrid/main.js') }}"></script>  
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
@@ -36,15 +35,22 @@
 
         {% block javascripts %}
             <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/js/bootstrap-datepicker.min.js"></script>
+            
             <script>
-                  $(document).ready(function () {
-                      $('.js-datepicker').datepicker({
-                          format: 'yyyy-mm-dd'
-                      });
-                      $('.datepicker').datepicker({
-                          autoclose: true
-                      });
-                  });
+			window.onload = function () {
+			    snow.init(40);
+			};
+		    </script>  
+            
+            <script>
+            $(document).ready(function () {
+                $('.js-datepicker').datepicker({
+                    format: 'yyyy-mm-dd'
+                });
+                $('.datepicker').datepicker({
+                    autoclose: true
+                });
+            });
             </script>
         {% endblock %}
 

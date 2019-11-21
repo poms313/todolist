@@ -1,0 +1,13 @@
+{% extends '/emails/baseEmail.html.twig' %}
+
+{% block body %}
+
+{% apply inline_css(source('email.css')) %}
+    <div class="margin padding border-grey align-center">
+        <h1>Vous avez un message personnel</h1>
+        <h2>L'administrateur de votre gestionnaire de tâches souhaite vous dire:</h2>
+        <p class="margin">{{ message }}</p>
+
+    </div>
+{% endapply %}
+{% endblock %}

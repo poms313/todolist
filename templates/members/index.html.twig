@@ -5,11 +5,10 @@
 {% block body %}
 
 <div class="margin padding border-grey align-center">
-
-  <h1>Bienvenue {{ userName }}!</h1>
-  {% if photo %}
-  <img class="width-180 block align-center" alt="photo de profil" src="{{ asset('uploads/images/' ~  photo ) }}">
-  {% endif %}
+<h1>Bienvenue {{ userName }}!</h1>
+{% if photo %}
+<img class="width-180 block align-center" alt="photo de profil" src="{{ asset('uploads/images/' ~  photo ) }}">
+{% endif %}
 </div>
 
 <div class="margin padding border-grey row align-center">
@@ -45,24 +44,25 @@
 
 <div class="margin padding border-grey align-center">
   <h1 class="margin">Liste des tâches à venir</h1>
-   <div class="row">
-        <div class="col-md-3">
-            <p class="late">Noir: en retard, aurait déjà dû être fait</p>
-        </div>
-        <div class="col-md-3">
-            <p class="to-do">Rouge: a faire aujourd'hui, au plus vite</p>
-        </div>
-        <div class="col-md-3">
-            <p class="waiting">Vert: en attente, a faire bientôt</p>
-        </div>
-        <div class="col-md-3">
-            <p class="paused">Jaune: en pause, en attente d'action de votre part</p>
-        </div>
+  <div class="row">
+    <div class="col-md-3">
+      <p class="late">Noir: en retard, aurait déjà dû être fait</p>
     </div>
+    <div class="col-md-3">
+      <p class="to-do">Rouge: a faire aujourd'hui, au plus vite</p>
+    </div>
+    <div class="col-md-3">
+      <p class="waiting">Vert: en attente, a faire bientôt</p>
+    </div>
+    <div class="col-md-3">
+      <p class="paused">Jaune: en pause, en attente d'action de votre part</p>
+    </div>
+  </div>
   <div id='calendar'></div>
 </div>
 
 <script>
+
   // show a calendar with list of tasks filter by user
   document.addEventListener('DOMContentLoaded', function () {
     var calendarEl = document.getElementById('calendar');
@@ -76,11 +76,11 @@
         center: 'title',
         right: 'next'
       },
-      events: 'http://localhost/php/public/index.php/membres/ReturnTasks',
+      events: 'http://pommine-fillatre.com/membres/ReturnTasks',
     });
 
     calendar.render();
   });
 </script>
-
+ 
 {% endblock %}
