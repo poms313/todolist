@@ -34,16 +34,26 @@
         {% block body %}{% endblock %}
 
         {% block javascripts %}
+            <!-- enable date picker -->
             <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/js/bootstrap-datepicker.min.js"></script>
             
             <script>
+              // start snow 
 			window.onload = function () {
 			    snow.init(40);
 			};
 		    </script>  
             
             <script>
+            // start anims reveal
             $(document).ready(function () {
+                // start reveal anims
+                $('.has-animation').each(function (index) {
+                    $(this).delay($(this).data('delay')).queue(function () {
+                        $(this).addClass('animate-in');
+                    });
+                });
+                // start date picker
                 $('.js-datepicker').datepicker({
                     format: 'yyyy-mm-dd'
                 });
